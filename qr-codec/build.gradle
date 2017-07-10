@@ -25,9 +25,9 @@ android {
 }
 
 // Home page url
-def siteUrl = 'https://github.com/GregoryHo/FastDialogFragment'
+def siteUrl = 'https://github.com/GregoryHo/EasyQRCodec'
 // git repository url
-def gitUrl = 'https://github.com/GregoryHo/FastDialogFragment.git'
+def gitUrl = 'https://github.com/GregoryHo/EasyQRCodec.git'
 // Maven Group ID for the artifact，
 group = "greg.library.fastdialogfragment"
 install {
