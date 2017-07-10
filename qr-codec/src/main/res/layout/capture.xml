@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <TextView
+      android:id="@+id/topPanel"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_alignParentTop="true"
+      android:gravity="center"
+      android:text="Top"
+      android:textSize="24sp"
+      />
+
+  <FrameLayout
+      android:id="@+id/capture_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_above="@+id/bottomPanel"
+      android:layout_below="@+id/topPanel"
+      >
+
+    <SurfaceView android:id="@+id/preview_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <com.ns.greg.libray.qr_codec.widget.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+  </FrameLayout>
+
+  <TextView
+      android:id="@+id/bottomPanel"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_alignParentBottom="true"
+      android:gravity="center"
+      android:text="Bottom"
+      android:textSize="24sp"
+      />
+
+</RelativeLayout>
