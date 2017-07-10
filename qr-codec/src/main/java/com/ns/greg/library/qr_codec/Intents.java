@@ -79,7 +79,7 @@ public final class Intents {
 
     /**
      * Comma-separated list of formats to scan for. The values must match the names of
-     * {@link com.google.zxing.BarcodeFormat}s, e.g. {@link com.google.zxing.BarcodeFormat#EAN_13}.
+     * barcodeFormats.
      * Example: "EAN_13,EAN_8,QR_CODE". This overrides {@link #MODE}.
      */
     public static final String FORMATS = "SCAN_FORMATS";
@@ -92,7 +92,7 @@ public final class Intents {
     public static final String CAMERA_ID = "SCAN_CAMERA_ID";
 
     /**
-     * @see com.google.zxing.DecodeHintType#CHARACTER_SET
+     * DecodeHintType#CHARACTER_SET
      */
     public static final String CHARACTER_SET = "CHARACTER_SET";
 
@@ -130,14 +130,14 @@ public final class Intents {
     /**
      * Call {@link android.content.Intent#getStringExtra(String)} with {@link #RESULT_FORMAT}
      * to determine which barcode format was found.
-     * See {@link com.google.zxing.BarcodeFormat} for possible values.
+     * See barcodeFormat for possible values.
      */
     public static final String RESULT_FORMAT = "SCAN_RESULT_FORMAT";
 
     /**
      * Call {@link android.content.Intent#getStringExtra(String)} with {@link #RESULT_UPC_EAN_EXTENSION}
      * to return the content of any UPC extension barcode that was also found. Only applicable
-     * to {@link com.google.zxing.BarcodeFormat#UPC_A} and {@link com.google.zxing.BarcodeFormat#EAN_13}
+     * to BarcodeFormat#UPC_A and BarcodeFormat#EAN_13
      * formats.
      */
     public static final String RESULT_UPC_EAN_EXTENSION = "SCAN_RESULT_UPC_EAN_EXTENSION";
@@ -149,19 +149,19 @@ public final class Intents {
     public static final String RESULT_BYTES = "SCAN_RESULT_BYTES";
 
     /**
-     * Key for the value of {@link com.google.zxing.ResultMetadataType#ORIENTATION}, if available.
+     * Key for the value of ResultMetadataType#ORIENTATION, if available.
      * Call {@link android.content.Intent#getIntArrayExtra(String)} with {@link #RESULT_ORIENTATION}.
      */
     public static final String RESULT_ORIENTATION = "SCAN_RESULT_ORIENTATION";
 
     /**
-     * Key for the value of {@link com.google.zxing.ResultMetadataType#ERROR_CORRECTION_LEVEL}, if available.
+     * Key for the value of ResultMetadataType#ERROR_CORRECTION_LEVEL, if available.
      * Call {@link android.content.Intent#getStringExtra(String)} with {@link #RESULT_ERROR_CORRECTION_LEVEL}.
      */
     public static final String RESULT_ERROR_CORRECTION_LEVEL = "SCAN_RESULT_ERROR_CORRECTION_LEVEL";
 
     /**
-     * Prefix for keys that map to the values of {@link com.google.zxing.ResultMetadataType#BYTE_SEGMENTS},
+     * Prefix for keys that map to the values of resultMetadataType#BYTE_SEGMENTS,
      * if available. The actual values will be set under a series of keys formed by adding 0, 1, 2, ...
      * to this prefix. So the first byte segment is under key "SCAN_RESULT_BYTE_SEGMENTS_0" for example.
      * Call {@link android.content.Intent#getByteArrayExtra(String)} with these keys.
@@ -208,14 +208,14 @@ public final class Intents {
 
     /**
      * The type of data being supplied if the format is QR Code. Use
-     * {@link android.content.Intent#putExtra(String, String)} with one of {@link Contents.Type}.
+     * {@link android.content.Intent#putExtra(String, String)} with one of Contents.Type.
      */
     public static final String TYPE = "ENCODE_TYPE";
 
     /**
      * The barcode format to be displayed. If this isn't specified or is blank,
      * it defaults to QR Code. Use {@link android.content.Intent#putExtra(String, String)}, where
-     * format is one of {@link com.google.zxing.BarcodeFormat}.
+     * format is one of barcodeFormat.
      */
     public static final String FORMAT = "ENCODE_FORMAT";
 
