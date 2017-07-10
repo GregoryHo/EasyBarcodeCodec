@@ -30,8 +30,7 @@ public class QRCodeDecoder {
     multiFormatReader.setHints(hints);
   }
 
-  public Result decode(Bitmap bitmap) {
-    // 開始對圖像資源解碼
+  public Result decode(@NonNull Bitmap bitmap) {
     Result result = null;
     try {
       result = multiFormatReader.decodeWithState(new BinaryBitmap(new HybridBinarizer(new BitmapLuminanceSource(bitmap))));
