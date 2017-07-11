@@ -8,7 +8,6 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.ns.greg.library.qr_codec.module.QRCodeContent;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -28,10 +27,10 @@ public class QRCodeEncoder {
     this.hints = hints;
   }
 
-  public Bitmap encode(@NonNull QRCodeContent content, int width, int height,
+  public Bitmap encode(@NonNull String content, int width, int height,
       @NonNull Bitmap.Config bitmapConfig) throws WriterException {
     MultiFormatWriter writer = new MultiFormatWriter();
-    BitMatrix result = writer.encode(content.json(), format, width, height, hints);
+    BitMatrix result = writer.encode(content, format, width, height, hints);
     int outputWidth = result.getWidth();
     int outPutHeight = result.getHeight();
     int[] pixels = new int[outputWidth * outPutHeight];

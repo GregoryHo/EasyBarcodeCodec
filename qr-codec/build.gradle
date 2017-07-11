@@ -2,6 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
+repositories {
+  maven {
+    url 'https://dl.bintray.com/gregoryho/maven'
+  }
+}
+
 // Library version
 version = "1.0.0"
 android {
@@ -29,7 +35,7 @@ def siteUrl = 'https://github.com/GregoryHo/EasyQRCodec'
 // git repository url
 def gitUrl = 'https://github.com/GregoryHo/EasyQRCodec.git'
 // Maven Group ID for the artifact，
-group = "greg.library.fastdialogfragment"
+group = "greg.library.easy-qrcodec"
 install {
   repositories.mavenInstaller {
     // This generates POM.xml with proper parameters

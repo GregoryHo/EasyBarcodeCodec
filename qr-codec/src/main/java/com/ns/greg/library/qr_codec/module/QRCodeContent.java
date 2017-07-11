@@ -20,12 +20,18 @@ public class QRCodeContent {
     return jsonMap;
   }
 
-  public String json() {
+  public String string() {
     return GsonHelper.createJsonWithDynamicKey(jsonMap);
   }
 
   public static QRCodeContent parse(String json, String verifyKey) {
-    Map<String, Object> map = GsonHelper.parseJsonWithDynamicKey(json);
+    Map<String, Object> map = null;
+    try {
+      map = GsonHelper.parseJsonWithDynamicKey(json);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     if (map == null || !map.containsKey(verifyKey)) {
       return null;
     }
