@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import com.ns.greg.library.qr_codec.AnalysisListener;
 import com.ns.greg.library.qr_codec.CaptureFragment;
+import com.ns.greg.library.qr_codec.widget.ViewfinderView;
 
 /**
  * Created by Gregory on 2017/7/6.
@@ -21,7 +22,8 @@ public class ScanActivity extends AppCompatActivity {
   @Override protected void onResume() {
     super.onResume();
 
-    final CaptureFragment captureFragment = new CaptureFragment();
+    final CaptureFragment captureFragment =
+        CaptureFragment.newInstance(ViewfinderView.FOCUS_FRAME, R.color.colorAccent);
     captureFragment.setAnalysisListener(new AnalysisListener() {
       @Override public void onSuccess(String text, Bitmap barcode) {
         System.out.println("onSuccess - " + "text = [" + text + "], barcode = [" + barcode + "]");

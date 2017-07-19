@@ -3,6 +3,7 @@ package com.ns.greg.library.qr_codec;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -41,6 +42,17 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
 
   private AnalysisListener analysisListener;
 
+  public static CaptureFragment newInstance(@ViewfinderView.BoundStyle int boundStyle,
+      @ColorRes int boundColor) {
+    CaptureFragment captureFragment = new CaptureFragment();
+    Bundle bundle = new Bundle();
+    bundle.putInt("boundStyle", boundStyle);
+    bundle.putInt("boundColor", boundColor);
+    captureFragment.setArguments(bundle);
+
+    return captureFragment;
+  }
+
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
@@ -52,6 +64,19 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
 
     surfaceView = (SurfaceView) view.findViewById(R.id.preview_view);
     viewfinderView = (ViewfinderView) view.findViewById(R.id.viewfinder_view);
+
+    Bundle bundle = getArguments();
+    if (bundle != null) {
+      int boundStyle = bundle.getInt("boundStyle", -1);
+      if (boundStyle > -1) {
+        viewfinderView.setBoundStyle(boundStyle);
+      }
+
+      int boundColor = bundle.getInt("boundColor", -1);
+      if (boundColor > -1) {
+        viewfinderView.setBoundColor(boundColor);
+      }
+    }
 
     view.findViewById(R.id.capture_view)
         .addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
@@ -88,8 +113,9 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
     try {
       cameraManager.openDriver(surfaceHolder);
       if (handler == null) {
-        handler = new CaptureFragmentHandler(this, new QRCodeDecoder.Builder().setResultPointCallback(
-            new ViewfinderResultPointCallback(viewfinderView)).build(), cameraManager);
+        handler = new CaptureFragmentHandler(this,
+            new QRCodeDecoder.Builder().setResultPointCallback(
+                new ViewfinderResultPointCallback(viewfinderView)).build(), cameraManager);
       }
     } catch (IOException ioe) {
       Log.w(TAG, ioe);

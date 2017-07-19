@@ -40,6 +40,10 @@ public class CodecActivity extends AppCompatActivity {
   @Override protected void onResume() {
     super.onResume();
 
+    /*--------------------------------
+     * Content builder
+     *-------------------------------*/
+
     final QRCodeContent qrCodeContent = new QRCodeContent.Builder().add("EasyCodec", true)
         .add("Name", "Greg")
         .add("Age", 26)
@@ -49,6 +53,7 @@ public class CodecActivity extends AppCompatActivity {
     /*--------------------------------
      * Encrypt
      *-------------------------------*/
+
     DESEncryptor desEncryptor = new DESEncryptor.Builder().setAlgorithm(DESEncryptor.AES)
         .setCipher(DESEncryptor.ECB)
         .setPadding(DESEncryptor.PKCS5_PADDING)
