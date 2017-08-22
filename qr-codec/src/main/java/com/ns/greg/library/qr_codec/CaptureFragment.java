@@ -83,7 +83,7 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
           @Override
           public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
               int oldTop, int oldRight, int oldBottom) {
-            cameraManager = new CameraManager(getContext(), right - left, bottom - top);
+            cameraManager = new CameraManager(getActivity().getApplicationContext(), right - left, bottom - top);
             viewfinderView.setCameraManager(cameraManager);
             v.removeOnLayoutChangeListener(this);
           }
