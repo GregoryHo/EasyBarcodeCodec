@@ -9,7 +9,7 @@ repositories {
 }
 
 // Library version
-version = "1.0.3"
+version = "1.0.4.s25"
 android {
   compileSdkVersion 25
   buildToolsVersion "25.0.3"
@@ -102,15 +102,13 @@ bintray {
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  final ZXING_VERSION = '3.3.0'
-  final GSON_VERSION = '2.8.1'
 
-  compile "com.google.zxing:core:$ZXING_VERSION"
-  compile "com.google.code.gson:gson:$GSON_VERSION"
+  compile 'com.android.support:appcompat-v7:25.3.1'
+  compile 'com.google.zxing:core:3.3.0'
+  compile 'com.google.code.gson:gson:2.8.1'
 
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  compile 'com.android.support:appcompat-v7:25.3.1'
   testCompile 'junit:junit:4.12'
 }
