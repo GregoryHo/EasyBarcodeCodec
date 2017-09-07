@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.os.Handler;
-import android.support.annotation.ColorRes;
+import android.support.annotation.ColorInt;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -67,7 +67,7 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
     surfaceView = (SurfaceView) findViewById(R.id.preview_view);
     viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
     viewfinderView.setBoundStyle(getBoundStyle());
-    viewfinderView.setBoundColorRes(getBoundColor());
+    viewfinderView.setBoundColorInt(getBoundColor());
     findViewById(R.id.capture_view).addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
       @Override
       public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
@@ -83,7 +83,7 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
     return borderStyle;
   }
 
-  @ColorRes protected int getBoundColor() {
+  @ColorInt protected int getBoundColor() {
     return borderColor;
   }
 

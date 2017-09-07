@@ -100,11 +100,11 @@ public final class ViewfinderView extends View {
     this.style = style;
   }
 
-  public void setBoundColorInt(int colorId) {
+  public void setBoundColorRes(int colorId) {
     this.boundColor = getResources().getColor(colorId);
   }
 
-  public void setBoundColorRes(int colorRes) {
+  public void setBoundColorInt(int colorRes) {
     this.boundColor = colorRes;
   }
 
