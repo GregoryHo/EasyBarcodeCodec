@@ -69,7 +69,7 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback,
 
       int boundColor = bundle.getInt("boundColor", -1);
       if (boundColor > -1) {
-        viewfinderView.setBoundColor(boundColor);
+        viewfinderView.setBoundColorInt(boundColor);
       }
     }
 

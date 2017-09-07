@@ -100,8 +100,12 @@ public final class ViewfinderView extends View {
     this.style = style;
   }
 
-  public void setBoundColor(int colorId) {
+  public void setBoundColorInt(int colorId) {
     this.boundColor = getResources().getColor(colorId);
+  }
+
+  public void setBoundColorRes(int colorRes) {
+    this.boundColor = colorRes;
   }
 
   @SuppressLint("DrawAllocation") @Override public void onDraw(Canvas canvas) {

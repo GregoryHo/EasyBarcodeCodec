@@ -1,8 +1,10 @@
 package com.ns.greg.library.qr_codec.capture;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -35,6 +37,8 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
   private SurfaceView surfaceView;
   private ViewfinderView viewfinderView;
   private AnalysisListener analysisListener;
+  private int borderStyle;
+  private int borderColor;
 
   public CaptureView(Context context) {
     this(context, null);
@@ -46,6 +50,15 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
 
   public CaptureView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
+
+    //load styled attributes.
+    final TypedArray attributes =
+        context.getTheme().obtainStyledAttributes(attrs, R.styleable.CaptureView, defStyle, 0);
+    borderStyle =
+        attributes.getInteger(R.styleable.CaptureView_border_style, ViewfinderView.FOCUS_CORNERS);
+    borderColor = attributes.getColor(R.styleable.CaptureView_border_color,
+        getResources().getColor(R.color.viewfinder_bound));
+
     findView();
   }
 
@@ -53,7 +66,8 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
     LayoutInflater.from(getContext()).inflate(R.layout.capture, this, true);
     surfaceView = (SurfaceView) findViewById(R.id.preview_view);
     viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-
+    viewfinderView.setBoundStyle(getBoundStyle());
+    viewfinderView.setBoundColorRes(getBoundColor());
     findViewById(R.id.capture_view).addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
       @Override
       public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
@@ -63,6 +77,14 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
         v.removeOnLayoutChangeListener(this);
       }
     });
+  }
+
+  @ViewfinderView.BoundStyle private int getBoundStyle() {
+    return borderStyle;
+  }
+
+  @ColorRes private int getBoundColor() {
+    return borderColor;
   }
 
   public void onResume() {
@@ -98,9 +120,8 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
     try {
       cameraManager.openDriver(surfaceHolder);
       if (handler == null) {
-        handler = new CaptureHandler(this,
-            new QRCodeDecoder.Builder().setResultPointCallback(
-                new ViewfinderResultPointCallback(viewfinderView)).build(), cameraManager);
+        handler = new CaptureHandler(this, new QRCodeDecoder.Builder().setResultPointCallback(
+            new ViewfinderResultPointCallback(viewfinderView)).build(), cameraManager);
       }
     } catch (IOException ioe) {
       Log.w(TAG, ioe);
