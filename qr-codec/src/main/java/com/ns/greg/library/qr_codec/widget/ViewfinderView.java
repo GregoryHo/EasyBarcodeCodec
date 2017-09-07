@@ -50,7 +50,6 @@ public final class ViewfinderView extends View {
 
   public static final int FOCUS_CORNERS = 0;
   public static final int FOCUS_FRAME = 1;
-  private int style;
 
   @IntDef({FOCUS_CORNERS, FOCUS_FRAME})
   @Retention(RetentionPolicy.SOURCE)
@@ -97,7 +96,7 @@ public final class ViewfinderView extends View {
   }
 
   public void setBoundStyle(int style) {
-    this.style = style;
+    this.frameStyle = style;
   }
 
   public void setBoundColorRes(int colorId) {
