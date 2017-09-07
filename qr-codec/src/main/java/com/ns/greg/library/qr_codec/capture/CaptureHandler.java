@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ns.greg.library.qr_codec;
+package com.ns.greg.library.qr_codec.capture;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,9 +31,9 @@ import com.ns.greg.library.qr_codec.module.decode.QRCodeDecoder;
  *
  * @author dswitkin@google.com (Daniel Switkin)
  */
-public final class CaptureFragmentHandler extends Handler {
+public final class CaptureHandler extends Handler {
 
-  private static final String TAG = CaptureFragmentHandler.class.getSimpleName();
+  private static final String TAG = CaptureHandler.class.getSimpleName();
 
   public static final int QUIT = 0;
   public static final int DECODE = 1;
@@ -41,7 +41,7 @@ public final class CaptureFragmentHandler extends Handler {
   public static final int DECODE_FAILED = 3;
   public static final int RESTART_PREVIEW = 4;
 
-  private final CaptureFragment captureFragment;
+  private final Capture capture;
   private final DecodeThread decodeThread;
   private State state;
   private final CameraManager cameraManager;
@@ -50,10 +50,10 @@ public final class CaptureFragmentHandler extends Handler {
     PREVIEW, SUCCESS, DONE
   }
 
-  CaptureFragmentHandler(CaptureFragment captureFragment, QRCodeDecoder qrCodeDecoder,
+  CaptureHandler(Capture capture, QRCodeDecoder qrCodeDecoder,
       CameraManager cameraManager) {
-    this.captureFragment = captureFragment;
-    decodeThread = new DecodeThread(captureFragment, qrCodeDecoder);
+    this.capture = capture;
+    decodeThread = new DecodeThread(this, qrCodeDecoder, cameraManager);
     decodeThread.start();
     state = State.SUCCESS;
 
@@ -83,7 +83,7 @@ public final class CaptureFragmentHandler extends Handler {
           }
         }
 
-        captureFragment.handleDecode((Result) message.obj, barcode);
+        capture.handleDecode((Result) message.obj, barcode);
         break;
 
       case DECODE_FAILED:
@@ -152,7 +152,7 @@ public final class CaptureFragmentHandler extends Handler {
     if (state == State.SUCCESS) {
       state = State.PREVIEW;
       cameraManager.requestPreviewFrame(decodeThread.getHandler(), DECODE);
-      captureFragment.drawViewfinder();
+      capture.drawViewfinder();
     }
   }
 }

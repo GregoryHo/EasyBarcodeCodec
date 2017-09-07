@@ -1,4 +1,4 @@
-package com.ns.greg.library.qr_codec;
+package com.ns.greg.library.qr_codec.capture;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,32 +14,27 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.zxing.Result;
+import com.ns.greg.library.qr_codec.AnalysisListener;
+import com.ns.greg.library.qr_codec.R;
 import com.ns.greg.library.qr_codec.camera.CameraManager;
 import com.ns.greg.library.qr_codec.module.decode.QRCodeDecoder;
 import com.ns.greg.library.qr_codec.widget.ViewfinderResultPointCallback;
 import com.ns.greg.library.qr_codec.widget.ViewfinderView;
 import java.io.IOException;
 
-import static com.ns.greg.library.qr_codec.CaptureFragmentHandler.RESTART_PREVIEW;
-
 /**
  * Created by Gregory on 2017/7/6.
  */
 
-public class CaptureFragment extends Fragment implements SurfaceHolder.Callback {
+public class CaptureFragment extends Fragment implements SurfaceHolder.Callback, Capture {
 
   private static final String TAG = "CaptureView";
 
   private CameraManager cameraManager;
-
   private boolean hasSurface;
-
-  private CaptureFragmentHandler handler;
-
+  private CaptureHandler handler;
   private SurfaceView surfaceView;
-
   private ViewfinderView viewfinderView;
-
   private AnalysisListener analysisListener;
 
   public static CaptureFragment newInstance(@ViewfinderView.BoundStyle int boundStyle,
@@ -83,7 +78,8 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
           @Override
           public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
               int oldTop, int oldRight, int oldBottom) {
-            cameraManager = new CameraManager(getActivity().getApplicationContext(), right - left, bottom - top);
+            cameraManager = new CameraManager(getActivity().getApplicationContext(), right - left,
+                bottom - top);
             viewfinderView.setCameraManager(cameraManager);
             v.removeOnLayoutChangeListener(this);
           }
@@ -113,7 +109,7 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
     try {
       cameraManager.openDriver(surfaceHolder);
       if (handler == null) {
-        handler = new CaptureFragmentHandler(this,
+        handler = new CaptureHandler(this,
             new QRCodeDecoder.Builder().setResultPointCallback(
                 new ViewfinderResultPointCallback(viewfinderView)).build(), cameraManager);
       }
@@ -165,6 +161,20 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
     hasSurface = false;
   }
 
+  @Override public void drawViewfinder() {
+    viewfinderView.drawViewfinder();
+  }
+
+  @Override public void handleDecode(Result result, Bitmap barcode) {
+    if (analysisListener != null) {
+      if (result == null || TextUtils.isEmpty(result.getText())) {
+        analysisListener.onFailure();
+      } else {
+        analysisListener.onSuccess(result.getText(), barcode);
+      }
+    }
+  }
+
   public void setAnalysisListener(AnalysisListener analysisListener) {
     this.analysisListener = analysisListener;
   }
@@ -177,27 +187,13 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
     return cameraManager;
   }
 
-  public void drawViewfinder() {
-    viewfinderView.drawViewfinder();
-  }
-
   public Handler getCaptureHandler() {
     return handler;
   }
 
-  public void handleDecode(Result result, Bitmap barcode) {
-    if (analysisListener != null) {
-      if (result == null || TextUtils.isEmpty(result.getText())) {
-        analysisListener.onFailure();
-      } else {
-        analysisListener.onSuccess(result.getText(), barcode);
-      }
-    }
-  }
-
   public void restartPreviewAfterDelay(long delayMS) {
     if (handler != null) {
-      handler.sendEmptyMessageDelayed(RESTART_PREVIEW, delayMS);
+      handler.sendEmptyMessageDelayed(CaptureHandler.RESTART_PREVIEW, delayMS);
     }
 
     resetStatusView();

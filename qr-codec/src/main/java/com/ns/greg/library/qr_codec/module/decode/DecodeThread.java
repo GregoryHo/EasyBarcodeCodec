@@ -19,7 +19,8 @@ package com.ns.greg.library.qr_codec.module.decode;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import com.ns.greg.library.qr_codec.CaptureFragment;
+import com.ns.greg.library.qr_codec.camera.CameraManager;
+import com.ns.greg.library.qr_codec.capture.CaptureHandler;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -32,14 +33,17 @@ public final class DecodeThread extends Thread {
   public static final String BARCODE_BITMAP = "barcode_bitmap";
   public static final String BARCODE_SCALED_FACTOR = "barcode_scaled_factor";
 
-  private final CaptureFragment captureFragment;
-  private QRCodeDecoder qrCodeDecoder;
-  private Handler handler;
+  private final CaptureHandler captureHandler;
+  private final QRCodeDecoder qrCodeDecoder;
+  private final CameraManager cameraManager;
   private final CountDownLatch handlerInitLatch;
+  private Handler handler;
 
-  public DecodeThread(CaptureFragment captureFragment, QRCodeDecoder qrCodeDecoder) {
-    this.captureFragment = captureFragment;
+  public DecodeThread(CaptureHandler captureHandler, QRCodeDecoder qrCodeDecoder,
+      CameraManager cameraManager) {
+    this.captureHandler = captureHandler;
     this.qrCodeDecoder = qrCodeDecoder;
+    this.cameraManager = cameraManager;
     handlerInitLatch = new CountDownLatch(1);
 
     Log.i("DecodeThread", "Hints: " + qrCodeDecoder.getHints());
@@ -56,7 +60,7 @@ public final class DecodeThread extends Thread {
 
   @Override public void run() {
     Looper.prepare();
-    handler = new DecodeHandler(captureFragment, qrCodeDecoder.getHints());
+    handler = new DecodeHandler(captureHandler, cameraManager, qrCodeDecoder.getHints());
     handlerInitLatch.countDown();
     Looper.loop();
   }

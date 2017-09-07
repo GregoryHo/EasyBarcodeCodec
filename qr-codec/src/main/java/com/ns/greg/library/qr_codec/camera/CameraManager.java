@@ -24,7 +24,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import com.google.zxing.PlanarYUVLuminanceSource;
-import com.ns.greg.library.qr_codec.CaptureFragment;
+import com.ns.greg.library.qr_codec.capture.CaptureFragment;
 import com.ns.greg.library.qr_codec.camera.open.OpenCamera;
 import com.ns.greg.library.qr_codec.camera.open.OpenCameraInterface;
 import java.io.IOException;

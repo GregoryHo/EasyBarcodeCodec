@@ -61,7 +61,7 @@ public class CodecActivity extends AppCompatActivity {
 
     String content = qrCodeContent.string();
     final String encryptContent =
-        desEncryptor.encrypt2String(content.getBytes(), "1234567890abcdef".getBytes());
+        desEncryptor.encrypt2HexString(content.getBytes(), "1234567890abcdef".getBytes());
 
     ((TextView) findViewById(R.id.encode_string)).setText(encryptContent);
 

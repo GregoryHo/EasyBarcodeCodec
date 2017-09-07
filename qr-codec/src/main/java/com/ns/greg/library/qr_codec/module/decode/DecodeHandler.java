@@ -29,27 +29,31 @@ import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.ns.greg.library.qr_codec.CaptureFragment;
+import com.ns.greg.library.qr_codec.camera.CameraManager;
+import com.ns.greg.library.qr_codec.capture.CaptureHandler;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
-import static com.ns.greg.library.qr_codec.CaptureFragmentHandler.DECODE;
-import static com.ns.greg.library.qr_codec.CaptureFragmentHandler.DECODE_FAILED;
-import static com.ns.greg.library.qr_codec.CaptureFragmentHandler.DECODE_SUCCEEDED;
-import static com.ns.greg.library.qr_codec.CaptureFragmentHandler.QUIT;
+import static com.ns.greg.library.qr_codec.capture.CaptureHandler.DECODE;
+import static com.ns.greg.library.qr_codec.capture.CaptureHandler.DECODE_FAILED;
+import static com.ns.greg.library.qr_codec.capture.CaptureHandler.DECODE_SUCCEEDED;
+import static com.ns.greg.library.qr_codec.capture.CaptureHandler.QUIT;
 
 final class DecodeHandler extends Handler {
 
   private static final String TAG = DecodeHandler.class.getSimpleName();
 
-  private final CaptureFragment captureFragment;
   private final MultiFormatReader multiFormatReader;
+  private final CaptureHandler handler;
+  private final CameraManager cameraManager;
   private boolean running = true;
 
-  DecodeHandler(CaptureFragment captureFragment, Map<DecodeHintType, Object> hints) {
+  DecodeHandler(CaptureHandler handler, CameraManager cameraManager,
+      Map<DecodeHintType, Object> hints) {
+    this.handler = handler;
+    this.cameraManager = cameraManager;
     multiFormatReader = new MultiFormatReader();
     multiFormatReader.setHints(hints);
-    this.captureFragment = captureFragment;
   }
 
   @Override public void handleMessage(Message message) {
@@ -88,8 +92,8 @@ final class DecodeHandler extends Handler {
     // but on phone is width x height.
     PlanarYUVLuminanceSource source;
 
-    if ((captureFragment.getCameraManager().getOpenCamera().getOrientation() + 360) % 360 == 0) {
-      source = captureFragment.getCameraManager().buildLuminanceSource(data, width, height);
+    if ((cameraManager.getOpenCamera().getOrientation() + 360) % 360 == 0) {
+      source = cameraManager.buildLuminanceSource(data, width, height);
     } else {
       byte[] rotatedData = new byte[data.length];
       for (int y = 0; y < height; y++) {
@@ -97,7 +101,7 @@ final class DecodeHandler extends Handler {
           rotatedData[x * height + height - y - 1] = data[x + y * width];
       }
 
-      source = captureFragment.getCameraManager().buildLuminanceSource(rotatedData, height, width);
+      source = cameraManager.buildLuminanceSource(rotatedData, height, width);
     }
 
     if (source != null) {
@@ -111,7 +115,6 @@ final class DecodeHandler extends Handler {
       }
     }
 
-    Handler handler = captureFragment.getCaptureHandler();
     if (rawResult != null) {
       // Don't log the barcode contents for security.
       long end = System.currentTimeMillis();
