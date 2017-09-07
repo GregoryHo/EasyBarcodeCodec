@@ -9,7 +9,7 @@ repositories {
 }
 
 // Library version
-version = "1.0.8.s22"
+version = "1.0.9.s22"
 android {
   compileSdkVersion 22
   buildToolsVersion "25.0.3"
