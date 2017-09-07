@@ -79,11 +79,11 @@ public class CaptureView extends FrameLayout implements SurfaceHolder.Callback, 
     });
   }
 
-  @ViewfinderView.BoundStyle private int getBoundStyle() {
+  @ViewfinderView.BoundStyle protected int getBoundStyle() {
     return borderStyle;
   }
 
-  @ColorRes private int getBoundColor() {
+  @ColorRes protected int getBoundColor() {
     return borderColor;
   }
 
