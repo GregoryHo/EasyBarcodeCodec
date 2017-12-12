@@ -127,7 +127,6 @@ public final class ViewfinderView extends View {
     canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
     canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);
     canvas.drawRect(0, frame.bottom + 1, width, height, paint);
-
     if (resultBitmap != null) {
       // Draw the opaque result bitmap over the scanning rectangle
       paint.setAlpha(CURRENT_POINT_OPACITY);
@@ -182,25 +181,21 @@ public final class ViewfinderView extends View {
 
   private void drawFocusCorners(Canvas canvas, Rect frame) {
     paint.setColor(boundColor);
-
     // Left top corner
     canvas.drawRect(frame.left, frame.top, frame.left + boundSideLength, frame.top + boundWidth,
         paint);
     canvas.drawRect(frame.left, frame.top, frame.left + boundWidth, frame.top + boundSideLength,
         paint);
-
     // Left bottom corner
     canvas.drawRect(frame.left, frame.bottom - boundWidth, frame.left + boundSideLength,
         frame.bottom, paint);
     canvas.drawRect(frame.left, frame.bottom - boundSideLength, frame.left + boundWidth,
         frame.bottom, paint);
-
     // Right top corner
     canvas.drawRect(frame.right - boundSideLength, frame.top, frame.right, frame.top + boundWidth,
         paint);
     canvas.drawRect(frame.right - boundWidth, frame.top, frame.right, frame.top + boundSideLength,
         paint);
-
     // Right bottom corner
     canvas.drawRect(frame.right - boundSideLength, frame.bottom - boundWidth, frame.right,
         frame.bottom, paint);
@@ -210,16 +205,12 @@ public final class ViewfinderView extends View {
 
   private void drawFocusFrame(Canvas canvas, Rect frame) {
     paint.setColor(boundColor);
-
     // Left line
     canvas.drawRect(frame.left, frame.top, frame.left + boundWidth, frame.bottom, paint);
-
     // Top line
     canvas.drawRect(frame.left, frame.top, frame.right, frame.top + boundWidth, paint);
-
     // Right line
     canvas.drawRect(frame.right - boundWidth, frame.top, frame.right, frame.bottom, paint);
-
     // Bottom line
     canvas.drawRect(frame.left, frame.bottom - boundWidth, frame.right, frame.bottom, paint);
   }

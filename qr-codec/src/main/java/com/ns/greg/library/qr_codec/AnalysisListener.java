@@ -8,7 +8,16 @@ import android.graphics.Bitmap;
 
 public interface AnalysisListener {
 
+  /**
+   * Analysis succeeded
+   *
+   * @param text the analysis text
+   * @param barcode the capture bitmap
+   */
   void onSuccess(String text, Bitmap barcode);
 
+  /**
+   * Analysis failure
+   */
   void onFailure();
 }

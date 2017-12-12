@@ -24,7 +24,7 @@ public class QRCodeDecoder {
 
   private final MultiFormatReader multiFormatReader;
 
-  public QRCodeDecoder(Map<DecodeHintType, Object> hints) {
+  private QRCodeDecoder(Map<DecodeHintType, Object> hints) {
     this.hints = hints;
     multiFormatReader = new MultiFormatReader();
     multiFormatReader.setHints(hints);

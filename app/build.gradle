@@ -26,14 +26,12 @@ android {
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-
-  compile 'com.android.support:appcompat-v7:25.3.1'
-  compile project(path: ':qr-codec')
-  compile 'greg.ns.library:easy-encryptor:1.0.3'
-
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation 'com.android.support:appcompat-v7:25.3.1'
+  implementation project(path: ':qr-codec')
+  implementation 'greg.ns.library:easy-encryptor:1.0.3'
+  androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  testCompile 'junit:junit:4.12'
+  testImplementation 'junit:junit:4.12'
 }

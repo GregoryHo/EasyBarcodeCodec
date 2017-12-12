@@ -11,7 +11,7 @@ public class BitmapLuminanceSource extends LuminanceSource {
 
   private byte[] pixels;
 
-  public BitmapLuminanceSource(Bitmap bitmap) {
+  BitmapLuminanceSource(Bitmap bitmap) {
     super(bitmap.getWidth(), bitmap.getHeight());
     int size = getWidth() * getHeight();
     pixels = new byte[size];

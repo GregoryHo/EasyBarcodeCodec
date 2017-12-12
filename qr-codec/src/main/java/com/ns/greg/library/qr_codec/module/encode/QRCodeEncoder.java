@@ -43,7 +43,6 @@ public class QRCodeEncoder {
 
     Bitmap bitmap = Bitmap.createBitmap(width, height, bitmapConfig);
     bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-
     return bitmap;
   }
 
@@ -79,7 +78,6 @@ public class QRCodeEncoder {
       hints.put(EncodeHintType.CHARACTER_SET, characterSet);
       hints.put(EncodeHintType.ERROR_CORRECTION, level);
       hints.put(EncodeHintType.MARGIN, margin);
-
       return new QRCodeEncoder(format, hints);
     }
   }

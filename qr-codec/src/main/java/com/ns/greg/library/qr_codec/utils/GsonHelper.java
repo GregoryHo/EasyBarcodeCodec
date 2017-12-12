@@ -25,7 +25,6 @@ public class GsonHelper {
     }
 
     Gson gson = new GsonBuilder().serializeNulls().create();
-
     return gson.fromJson(json, new TypeToken<Map<String, T>>() {
     }.getType());
   }
