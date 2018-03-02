@@ -29,9 +29,9 @@ android {
 }
 
 // Home page url
-def siteUrl = 'https://github.com/GregoryHo/EasyQRCodec'
+def siteUrl = 'https://github.com/GregoryHo/EasyBarcodeCodec'
 // git repository url
-def gitUrl = 'https://github.com/GregoryHo/EasyQRCodec.git'
+def gitUrl = 'https://github.com/GregoryHo/EasyBarcodeCodec.git'
 // Maven Group ID for the artifact，
 group = "greg.ns.library"
 install {
