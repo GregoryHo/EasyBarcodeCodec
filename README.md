@@ -1,4 +1,4 @@
-# Easy QR Codec
-A codec/scanner for QR code
+# Easy Barcode Codec
+A codec/scanner for barcode
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/GregoryHo/EasyQRCodec/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/GregoryHo/EasyBarcodeCodec/blob/master/LICENSE)
