@@ -1,1 +1,1 @@
-include ':app', ':qr-codec'
+include ':app', ':barcode-codec'

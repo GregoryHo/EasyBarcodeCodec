@@ -28,7 +28,7 @@ android {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'com.android.support:appcompat-v7:26.1.0'
-  implementation project(path: ':qr-codec')
+  implementation project(path: ':barcode-codec')
   implementation 'greg.ns.library:easy-encryptor:1.0.5'
   androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'

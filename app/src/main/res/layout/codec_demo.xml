@@ -26,11 +26,19 @@
         />
 
     <ImageView
-        android:id="@+id/encode_bitmap"
+        android:id="@+id/encode_qr_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
         />
+
+    <ImageView
+        android:id="@+id/encode_bar_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        />
+
 
   </LinearLayout>
 

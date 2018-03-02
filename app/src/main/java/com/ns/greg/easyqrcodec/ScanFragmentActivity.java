@@ -4,9 +4,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import com.ns.greg.library.qr_codec.AnalysisListener;
-import com.ns.greg.library.qr_codec.capture.CaptureFragment;
-import com.ns.greg.library.qr_codec.widget.ViewfinderView;
+import com.ns.greg.library.barcodecodec.AnalysisListener;
+import com.ns.greg.library.barcodecodec.capture.CaptureFragment;
+import com.ns.greg.library.barcodecodec.widget.ViewfinderView;
 
 /**
  * Created by Gregory on 2017/7/6.

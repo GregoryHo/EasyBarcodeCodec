@@ -7,7 +7,7 @@
     android:orientation="vertical"
     >
 
-  <com.ns.greg.library.qr_codec.capture.CaptureView
+  <com.ns.greg.library.barcodecodec.capture.CaptureView
       android:id="@+id/demo_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -15,6 +15,6 @@
       custom:border_style="1"
       >
 
-  </com.ns.greg.library.qr_codec.capture.CaptureView>
+  </com.ns.greg.library.barcodecodec.capture.CaptureView>
 
 </LinearLayout>
